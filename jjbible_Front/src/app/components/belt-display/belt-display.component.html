@@ -1,0 +1,11 @@
+    <div class="belt"
+         [class.compact]="size === 'compact'"
+         [class.hero]="size === 'hero'"
+         [style.background]="primaryColor">
+      <span class="embroidery" *ngIf="size === 'hero' && label">{{ label }}</span>
+
+      <div class="belt-tip" [style.background]="tipColor()">
+        <div class="bar" *ngFor="let i of barresArray()"></div>
+      </div>
+    </div>
+  

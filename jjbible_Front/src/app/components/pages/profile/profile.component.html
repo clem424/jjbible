@@ -1,0 +1,108 @@
+    <div class="container" *ngIf="me">
+      <h1>Mon profil</h1>
+
+      <!-- Carte profil principale -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="avatar"
+               [style.background]="'linear-gradient(135deg, ' + (me.couleur_hex || '#1E63D6') + ', ' + (me.couleur_secondaire || '#0D47A1') + ')'">
+            {{ me.pseudo[0].toUpperCase() }}
+          </div>
+          <div class="info">
+            <h2>{{ me.pseudo }}</h2>
+            <p class="email">{{ me.email }}</p>
+            <div class="belt-section">
+              <app-belt-display
+                [primaryColor]="me.couleur_hex || '#1E63D6'"
+                [beltName]="me.ceinture_nom || 'Blanche'"
+                [barrettes]="me.barrettes || 0"></app-belt-display>
+              <span class="belt-label">{{ me.ceinture_nom }} · {{ me.barrettes || 0 }} barrette{{ (me.barrettes || 0) > 1 ? 's' : '' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-settings">
+          <div class="setting">
+            <label>Couleur de ceinture</label>
+            <div class="belt-picker">
+              <button
+                *ngFor="let c of ceintures"
+                class="belt-option"
+                [style.background]="'linear-gradient(135deg, ' + c.couleur_hex + ', ' + c.couleur_secondaire + ')'"
+                [class.selected]="c.id === me.ceinture_id"
+                (click)="selectBelt(c)"
+                [title]="c.nom">
+                <span *ngIf="c.id === me.ceinture_id" class="check">✓</span>
+              </button>
+            </div>
+            <p class="hint">Le thème complet s'adapte à ta ceinture</p>
+          </div>
+
+          <div class="setting">
+            <label>Barrettes (degrés)</label>
+            <div class="bar-picker">
+              <button
+                *ngFor="let n of [0, 1, 2, 3, 4]"
+                class="bar-option"
+                [class.selected]="(me.barrettes || 0) === n"
+                (click)="setBarrettes(n)">
+                {{ n }}
+              </button>
+            </div>
+            <p class="hint">De 0 à 4 barrettes (degrés)</p>
+          </div>
+
+          <div class="setting full">
+            <label>Bio</label>
+            <textarea [(ngModel)]="bio" rows="3"
+              placeholder="Quelques mots sur ta pratique, ton club, ton style préféré..."></textarea>
+            <button class="btn-primary save" (click)="saveBio()" [disabled]="saving">
+              {{ saving ? 'Enregistrement...' : 'Enregistrer la bio' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats : camembert -->
+      <div class="stats-card" *ngIf="totalTechniques > 0">
+        <div class="stats-header">
+          <h2>📊 Répartition par catégorie</h2>
+          <div class="stat-summary">
+            <div class="stat-item">
+              <span class="stat-value">{{ totalTechniques }}</span>
+              <span class="stat-label">techniques</span>
+            </div>
+            <div class="stat-item maitrise">
+              <span class="stat-value">{{ stats['maitrise'] || 0 }}</span>
+              <span class="stat-label">maîtrisées</span>
+            </div>
+            <div class="stat-item en-cours">
+              <span class="stat-value">{{ stats['en_cours'] || 0 }}</span>
+              <span class="stat-label">en cours</span>
+            </div>
+          </div>
+        </div>
+        <app-category-pie [data]="categoryStats"></app-category-pie>
+      </div>
+
+      <!-- Favoris -->
+      <div class="favs-section" *ngIf="favorites.length > 0">
+        <div class="section-header">
+          <h2>⭐ Mes favoris</h2>
+          <span class="count">{{ favorites.length }} technique{{ favorites.length > 1 ? 's' : '' }}</span>
+        </div>
+        <div class="grid">
+          <app-technique-card
+            *ngFor="let t of favorites"
+            [technique]="t"
+            (toggleFavori)="onToggleFavori($event)"></app-technique-card>
+        </div>
+      </div>
+
+      <div class="empty-favs" *ngIf="favorites.length === 0 && totalTechniques === 0">
+        <span class="emoji">🥋</span>
+        <p>Ton pokédex est encore vide</p>
+        <p class="hint">Va sur la page Techniques pour commencer ton catalogue</p>
+      </div>
+    </div>
+  

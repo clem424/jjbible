@@ -1,0 +1,41 @@
+    <div class="container">
+      <h1>Trouver un athlète</h1>
+      <p class="subtitle">Recherche un pratiquant et explore son pokédex public.</p>
+
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          [(ngModel)]="query"
+          (ngModelChange)="onSearch()"
+          placeholder="Pseudo de l'utilisateur..." />
+      </div>
+
+      <div class="results" *ngIf="results.length > 0">
+        <a *ngFor="let u of results" [routerLink]="['/users', u.id]" class="user-card">
+          <div class="avatar"
+               [style.background]="'linear-gradient(135deg, ' + (u.couleur_hex || '#1E63D6') + ', ' + (u.couleur_secondaire || '#0D47A1') + ')'">
+            {{ u.pseudo[0].toUpperCase() }}
+          </div>
+          <div class="info">
+            <div class="pseudo">{{ u.pseudo }}</div>
+            <div class="belt-mini" *ngIf="u.couleur_hex">
+              <app-belt-display
+                [primaryColor]="u.couleur_hex"
+                [beltName]="u.ceinture_nom || 'Blanche'"
+                [barrettes]="u.barrettes || 0"
+                size="compact"></app-belt-display>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="empty" *ngIf="query.length > 0 && results.length === 0">
+        <p>Aucun athlète ne correspond à "{{ query }}".</p>
+      </div>
+
+      <div class="empty" *ngIf="query.length === 0">
+        <p>Commence à taper pour rechercher 🔎</p>
+      </div>
+    </div>
+  

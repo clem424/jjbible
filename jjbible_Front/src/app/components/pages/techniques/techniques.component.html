@@ -1,0 +1,105 @@
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1>Mon Pokédex</h1>
+          <p class="subtitle">{{ myTechniques.length }} technique{{ myTechniques.length > 1 ? 's' : '' }} · {{ groups.length }} catégorie{{ groups.length > 1 ? 's' : '' }}</p>
+        </div>
+        <button class="btn-primary" (click)="openCreate()">
+          <span class="plus">+</span> Nouvelle technique
+        </button>
+      </div>
+
+      <div class="search-bar">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input
+            [(ngModel)]="query"
+            (ngModelChange)="onSearch()"
+            placeholder="Rechercher une technique..." />
+        </div>
+        <div class="scope-tabs">
+          <button [class.active]="scope === 'mine'" (click)="setScope('mine')">Mon pokédex</button>
+          <button [class.active]="scope === 'public'" (click)="setScope('public')">Catalogue</button>
+          <button [class.active]="scope === 'all'" (click)="setScope('all')">Tout</button>
+        </div>
+      </div>
+
+      <!-- Résultats du catalogue -->
+      <section *ngIf="scope !== 'mine' && query && searchResults.length > 0" class="catalog-results">
+        <div class="section-header">
+          <h2>Résultats du catalogue ({{ searchResults.length }})</h2>
+        </div>
+        <div class="grid">
+          <app-technique-card
+            *ngFor="let t of searchResults"
+            [technique]="t"
+            [canFavori]="false">
+            <button class="btn-secondary full-w" (click)="addToPokedex(t)" [disabled]="isInMine(t.id)">
+              {{ isInMine(t.id) ? '✓ Dans mon pokédex' : '+ Ajouter à mon pokédex' }}
+            </button>
+          </app-technique-card>
+        </div>
+      </section>
+
+      <section *ngIf="scope === 'mine' || (scope === 'all' && !query)">
+        <div class="empty-state" *ngIf="myTechniques.length === 0">
+          <div class="empty-icon">🥋</div>
+          <h2>Ton pokédex est vide</h2>
+          <p>Crée ta première technique ou explore le catalogue commun.</p>
+          <button class="btn-primary" (click)="openCreate()">+ Créer une technique</button>
+        </div>
+
+        <div class="empty-state" *ngIf="myTechniques.length > 0 && filteredGroups.length === 0">
+          <p>Aucune technique ne correspond à "{{ query }}".</p>
+        </div>
+
+        <div class="categories">
+          <div class="category-group" *ngFor="let g of filteredGroups">
+            <button class="category-header" (click)="toggleCollapse(g)">
+              <span class="chevron" [class.open]="!g.collapsed">▶</span>
+              <span class="cat-name">{{ g.name }}</span>
+              <span class="cat-count">{{ g.techniques.length }}</span>
+            </button>
+            <div class="category-content" [class.collapsed]="g.collapsed">
+              <div class="grid">
+                <app-technique-card
+                  *ngFor="let t of g.techniques"
+                  [technique]="t"
+                  [canEditMaitrise]="true"
+                  (toggleFavori)="toggleFavori(t)"
+                  (maitriseChanged)="onMaitriseChanged($event)">
+                  <div class="card-actions">
+                    <button
+                      *ngIf="t.createur_id === auth.userId()"
+                      class="btn-secondary action-btn"
+                      (click)="openEdit(t)">
+                      ✏ Modifier
+                    </button>
+                    <button
+                      *ngIf="t.createur_id === auth.userId()"
+                      class="btn-danger icon-btn"
+                      (click)="deleteTechnique(t)"
+                      title="Supprimer">
+                      🗑
+                    </button>
+                    <button
+                      *ngIf="t.createur_id !== auth.userId()"
+                      class="btn-secondary action-btn"
+                      (click)="removeFromPokedex(t)">
+                      Retirer
+                    </button>
+                  </div>
+                </app-technique-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <app-technique-form
+      *ngIf="formOpen"
+      [technique]="editing"
+      (saved)="onSave()"
+      (closed)="closeForm()"></app-technique-form>
+  

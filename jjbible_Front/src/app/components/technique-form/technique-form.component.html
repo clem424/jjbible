@@ -1,0 +1,89 @@
+<div class="overlay" (click)="close()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ technique?.id ? 'Modifier la technique' : 'Nouvelle technique' }}</h3>
+      <button class="close-btn" (click)="close()">&#10005;</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="full">
+        <label>Nom de la technique *</label>
+        <input [(ngModel)]="data.nom" placeholder="ex: Etranglement triangle depuis la garde" />
+      </div>
+
+      <div>
+        <label>Categorie</label>
+        <select [(ngModel)]="data.categorie">
+          <option [ngValue]="null">- Choisir -</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Visibilite</label>
+        <select [(ngModel)]="data.visibilite">
+          <option value="privee">Privee (juste moi)</option>
+          <option value="publique">Publique (catalogue commun)</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label>URL video</label>
+        <input [(ngModel)]="data.url_video" placeholder="https://www.youtube.com/... | tiktok | instagram" />
+        <small class="hint">YouTube, TikTok ou Instagram (post / reel)</small>
+      </div>
+
+      <div class="full">
+        <label>Description</label>
+        <textarea [(ngModel)]="data.description" rows="4"
+          placeholder="Decris la technique : entree, points cles, finition..."></textarea>
+      </div>
+    </div>
+
+    <!-- ============ LIENS / ENCHAINEMENTS ============ -->
+    <div class="links-block">
+      <label class="links-title">Liens avec d'autres techniques</label>
+
+      <!-- Liaisons deja enregistrees (mode edition) -->
+      <ul class="link-list" *ngIf="existingLinks.length">
+        <li *ngFor="let l of existingLinks">
+          <span class="chip existing">deja lie</span>
+          <span class="link-text">Cette technique {{ l.label }}</span>
+          <button class="mini-del" type="button" (click)="removeExistingLink(l)" title="Supprimer ce lien">&#10005;</button>
+        </li>
+      </ul>
+
+      <!-- Lignes de liaison dynamiques -->
+      <div class="link-row" *ngFor="let row of links; let i = index">
+        <span class="prefix">Cette technique</span>
+        <select [(ngModel)]="row.relation">
+          <option value="precede">precede</option>
+          <option value="equivaut">equivaut a</option>
+          <option value="suit">suit</option>
+        </select>
+        <select [(ngModel)]="row.cibleId">
+          <option [ngValue]="null" disabled>- choisir une technique -</option>
+          <option *ngFor="let t of linkCandidates" [ngValue]="t.id">{{ t.nom }}</option>
+        </select>
+        <button class="btn-del-row" type="button" (click)="removeLinkRow(i)">Supprimer</button>
+      </div>
+
+      <button class="btn-add-link" type="button" (click)="addLinkRow()"
+        [disabled]="!linkCandidates.length">
+        + Ajouter une liaison
+      </button>
+      <p class="hint" *ngIf="!linkCandidates.length">
+        Cree d'autres techniques pour pouvoir les relier.
+      </p>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <div class="actions">
+      <button class="btn-secondary" (click)="close()">Annuler</button>
+      <button class="btn-primary" (click)="submit()" [disabled]="!data.nom || saving">
+        {{ saving ? 'Enregistrement...' : (technique?.id ? 'Enregistrer' : 'Creer') }}
+      </button>
+    </div>
+  </div>
+</div>

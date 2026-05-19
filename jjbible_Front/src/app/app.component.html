@@ -1,0 +1,27 @@
+    <nav class="topbar" *ngIf="auth.isLoggedIn()">
+      <div class="brand-row">
+        <div class="brand">
+          <span class="logo">柔</span>
+          <span class="name">JJBible</span>
+        </div>
+        <div class="links">
+          <a routerLink="/techniques" routerLinkActive="active">Techniques</a>
+          <a routerLink="/graph" routerLinkActive="active">Carte</a>
+          <a routerLink="/users" routerLinkActive="active">Athlètes</a>
+          <a routerLink="/profile" routerLinkActive="active">Profil</a>
+          <button class="btn-ghost-light logout" (click)="logout()">Déconnexion</button>
+        </div>
+      </div>
+
+      <!-- Ceinture XL avec pseudo brodé -->
+      <div class="belt-hero" *ngIf="me()">
+        <app-belt-display
+          [primaryColor]="me()!.couleur_hex || '#1E63D6'"
+          [beltName]="me()!.ceinture_nom || 'Blanche'"
+          [barrettes]="me()!.barrettes || 0"
+          size="hero"
+          [label]="me()!.pseudo"></app-belt-display>
+      </div>
+    </nav>
+    <router-outlet></router-outlet>
+  

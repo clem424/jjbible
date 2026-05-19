@@ -1,0 +1,58 @@
+    h1 { margin-bottom: 4px; }
+    .subtitle { color: var(--text-muted); margin: 0 0 24px; font-size: 14px; }
+    .search-wrap {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .search-wrap input {
+      padding: 16px 18px 16px 46px;
+      font-size: 15px;
+      border-radius: var(--radius);
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .results { display: flex; flex-direction: column; gap: 10px; }
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text);
+    }
+    .user-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow);
+      border-color: var(--belt-primary);
+    }
+    .avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .info { flex: 1; min-width: 0; }
+    .pseudo { font-weight: 700; margin-bottom: 6px; }
+    .belt-mini { max-width: 200px; }
+    .arrow { color: var(--belt-primary); font-size: 18px; font-weight: 700; }
+
+    .empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--text-muted);
+    }
+  

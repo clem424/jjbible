@@ -1,0 +1,54 @@
+    .topbar {
+      padding: 14px 28px 16px;
+      background: linear-gradient(135deg, var(--belt-primary), var(--belt-secondary));
+      color: var(--belt-text-on-belt);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .brand-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.18);
+      border-radius: 11px; font-size: 24px; font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+    .name { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+
+    .links { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .links a {
+      color: var(--belt-text-on-belt);
+      padding: 8px 14px; border-radius: 8px;
+      font-weight: 600; font-size: 14px;
+      opacity: 0.85;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .links a:hover { opacity: 1; background: rgba(255,255,255,0.12); }
+    .links a.active { background: rgba(255,255,255,0.22); opacity: 1; }
+    .btn-ghost-light {
+      background: transparent;
+      color: var(--belt-text-on-belt);
+      border: 1px solid rgba(255,255,255,0.3);
+      margin-left: 8px;
+      padding: 7px 13px; font-size: 13px;
+    }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.12); }
+
+    .belt-hero {
+      max-width: 100%;
+      animation: belt-appear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes belt-appear {
+      from { transform: scaleX(0.6); opacity: 0; }
+      to { transform: scaleX(1); opacity: 1; }
+    }
+  

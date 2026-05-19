@@ -1,0 +1,80 @@
+    <div class="tech-card" [class.fav]="technique.favori">
+
+      <!-- Vidéo : prévisualisation OU bouton -->
+      <div class="video-area" *ngIf="technique.url_video">
+        <div class="video-wrap" *ngIf="showVideo && embedUrl()">
+          <iframe
+            [src]="embedUrl()! | safeUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+          <button class="hide-video" (click)="showVideo = false" title="Masquer">✕</button>
+        </div>
+        <div class="video-placeholder" *ngIf="!showVideo">
+          <div class="actions">
+            <button *ngIf="embedUrl()" class="btn-play" (click)="showVideo = true">
+              <span class="icon">▶</span><span>Prévisualiser</span>
+            </button>
+            <a [href]="technique.url_video!" target="_blank" rel="noopener" class="btn-open">
+              <span class="icon">↗</span><span>Ouvrir le lien</span>
+            </a>
+          </div>
+          <div class="platform-tag" *ngIf="technique.plateforme && technique.plateforme !== 'autre'">
+            {{ technique.plateforme }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicateur de maîtrise (barre colorée en haut) -->
+      <div *ngIf="canEditMaitrise && technique.niveau_maitrise" class="maitrise-bar"
+           [style.background]="niveauColor(technique.niveau_maitrise)"></div>
+
+      <div class="content">
+        <div class="header-row">
+          <h3>{{ technique.nom }}</h3>
+          <button
+            *ngIf="canFavori"
+            class="fav-btn"
+            [class.active]="technique.favori"
+            (click)="toggleFavori.emit(technique)"
+            [title]="technique.favori ? 'Retirer des favoris' : 'Ajouter aux favoris'">
+            ★
+          </button>
+        </div>
+
+        <div class="tags">
+          <span class="cat-pill" *ngIf="technique.categorie">{{ technique.categorie }}</span>
+          <span
+            *ngIf="!canEditMaitrise && technique.niveau_maitrise"
+            class="maitrise-pill"
+            [style.color]="niveauColor(technique.niveau_maitrise)"
+            [style.borderColor]="niveauColor(technique.niveau_maitrise)">
+            {{ niveauIcon(technique.niveau_maitrise) }} {{ niveauLabel(technique.niveau_maitrise) }}
+          </span>
+        </div>
+
+        <p class="desc" *ngIf="technique.description">{{ technique.description }}</p>
+
+        <!-- Sélecteur de maîtrise (uniquement pour les techniques de mon pokédex) -->
+        <div *ngIf="canEditMaitrise" class="maitrise-section">
+          <label class="maitrise-label">Niveau de maîtrise</label>
+          <div class="maitrise-buttons">
+            <button
+              *ngFor="let n of niveaux"
+              class="m-btn"
+              [class.active]="technique.niveau_maitrise === n"
+              [style.borderColor]="technique.niveau_maitrise === n ? niveauColor(n) : ''"
+              [style.color]="technique.niveau_maitrise === n ? niveauColor(n) : ''"
+              (click)="onMaitriseChange(n)">
+              <span class="m-icon">{{ niveauIcon(n) }}</span>
+              <span class="m-text">{{ niveauLabel(n) }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  

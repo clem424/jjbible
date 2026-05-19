@@ -1,0 +1,36 @@
+    <div class="login-wrapper">
+      <div class="login-card">
+        <div class="brand">
+          <span class="logo">柔</span>
+          <h1>JJBible</h1>
+        </div>
+        <p class="subtitle">{{ mode === 'login' ? 'Connecte-toi à ton dojo virtuel' : 'Crée ton profil de pratiquant' }}</p>
+
+        <div class="tabs">
+          <button [class.active]="mode === 'login'" (click)="mode = 'login'; error = ''">Connexion</button>
+          <button [class.active]="mode === 'register'" (click)="mode = 'register'; error = ''">Inscription</button>
+        </div>
+
+        <div class="form">
+          <div>
+            <label>Pseudo</label>
+            <input [(ngModel)]="pseudo" placeholder="ex: roger_gracie" />
+          </div>
+          <div *ngIf="mode === 'register'">
+            <label>Email</label>
+            <input [(ngModel)]="email" type="email" placeholder="ton@email.fr" />
+          </div>
+          <div>
+            <label>Mot de passe</label>
+            <input [(ngModel)]="motDePasse" type="password" placeholder="••••••••" />
+          </div>
+
+          <p class="error" *ngIf="error">{{ error }}</p>
+
+          <button class="btn-primary submit" (click)="submit()" [disabled]="loading">
+            {{ loading ? '...' : (mode === 'login' ? 'Se connecter' : 'Créer mon compte') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  

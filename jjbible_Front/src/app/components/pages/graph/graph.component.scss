@@ -1,0 +1,158 @@
+.graph-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.page-head h1 {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+}
+.page-head .subtitle {
+  margin: 0 0 18px;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.link-form,
+.toolbar {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.link-form h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+select,
+input {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+select {
+  min-width: 150px;
+}
+.relation {
+  min-width: 140px;
+}
+input.note {
+  flex: 1;
+  min-width: 160px;
+}
+
+.btn-primary {
+  background: var(--belt-primary, #1e63d6);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-ghost {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 7px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn-ghost:hover {
+  background: #f1f5f9;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.toolbar label {
+  font-size: 0.85rem;
+  color: #475569;
+}
+.toolbar .hint {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  flex: 1;
+  min-width: 220px;
+}
+
+.msg {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+}
+.msg.ok {
+  color: #059669;
+}
+.msg.err {
+  color: #dc2626;
+}
+
+.status {
+  padding: 40px;
+  text-align: center;
+  color: #64748b;
+}
+
+.cy-container {
+  width: 100%;
+  height: 560px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle, #f1f5f9 1px, transparent 1px) 0 0 / 22px 22px,
+    #ffffff;
+}
+.cy-container.hidden {
+  display: none;
+}
+
+.legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #475569;
+}
+.legend .dot {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.legend .dot.ring {
+  background: #fff;
+  border: 3px solid #fbbf24;
+}
+.legend .dash {
+  display: inline-block;
+  width: 22px;
+  height: 0;
+  border-top: 2px dashed #a855f7;
+  margin-right: 5px;
+  vertical-align: middle;
+}

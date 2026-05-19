@@ -1,0 +1,44 @@
+<div class="graph-page">
+  <header class="page-head">
+    <h1>Carte des techniques</h1>
+    <p class="subtitle">
+      Chaque point est une technique de ton pokedex. Les fleches montrent les
+      enchainements (de la technique <em>avant</em> vers la technique
+      <em>apres</em>). Les liens en pointilles violets sont des equivalences.
+      Pour creer ou modifier des liens, va dans la page
+      <strong>Techniques</strong>.
+    </p>
+  </header>
+
+  <section class="toolbar">
+    <label>
+      Disposition :
+      <select [(ngModel)]="layout" (change)="relayout()">
+        <option value="breadthfirst">Hierarchique (enchainements)</option>
+        <option value="cose">Automatique (forces)</option>
+        <option value="circle">Cercle</option>
+        <option value="grid">Grille</option>
+      </select>
+    </label>
+    <button class="btn-ghost" (click)="relayout()">Reorganiser</button>
+    <button class="btn-ghost" (click)="fit()">Recentrer</button>
+    <button class="btn-ghost" (click)="load()">Rafraichir</button>
+    <span class="hint">Clic sur un point pour isoler ses connexions, clic sur le fond pour tout afficher.</span>
+  </section>
+
+  <div class="status" *ngIf="loading">Chargement du graphe...</div>
+  <div class="status" *ngIf="!loading && graph.nodes.length === 0">
+    Ton pokedex est vide : ajoute des techniques puis cree des enchainements
+    depuis la page Techniques.
+  </div>
+
+  <div #cy class="cy-container" [class.hidden]="loading || graph.nodes.length === 0"></div>
+
+  <section class="legend" *ngIf="!loading && graph.nodes.length">
+    <span><i class="dot" style="background:#9ca3af"></i> Non maitrisee</span>
+    <span><i class="dot" style="background:#f59e0b"></i> En cours</span>
+    <span><i class="dot" style="background:#10b981"></i> Maitrisee</span>
+    <span><i class="dot ring"></i> Favori</span>
+    <span><i class="dash"></i> Equivalence</span>
+  </section>
+</div>

@@ -1,0 +1,43 @@
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--belt-primary), var(--belt-secondary));
+      padding: 20px;
+    }
+    .login-card {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 36px 32px;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .logo {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--belt-primary), var(--belt-secondary));
+      color: white;
+      border-radius: 10px;
+      font-size: 22px; font-weight: 700;
+    }
+    h1 { margin: 0; font-size: 28px; }
+    .subtitle { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
+    .tabs {
+      display: flex; gap: 6px; margin-bottom: 22px;
+      background: var(--bg);
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .tabs button {
+      flex: 1; background: transparent; color: var(--text-muted);
+      padding: 9px;
+    }
+    .tabs button.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .form { display: flex; flex-direction: column; gap: 14px; }
+    .submit { width: 100%; padding: 13px; margin-top: 8px; }
+    .error { color: #d32f2f; font-size: 13px; margin: 0; }
+  

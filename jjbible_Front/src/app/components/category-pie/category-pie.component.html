@@ -1,0 +1,38 @@
+    <div class="pie-wrap" *ngIf="slices.length > 0">
+      <div class="chart">
+        <svg viewBox="-110 -110 220 220" class="pie">
+          <!-- Cercle de fond pour le cas "1 seule catégorie" (un path 360° n'est pas valide en SVG) -->
+          <circle r="100" fill="transparent"></circle>
+          <path
+            *ngFor="let s of slices"
+            [attr.d]="s.pathD"
+            [attr.fill]="s.color"
+            stroke="white"
+            stroke-width="2"
+            class="slice"
+            [attr.data-name]="s.name">
+          </path>
+          <circle r="48" fill="white" class="center"></circle>
+          <text text-anchor="middle" dominant-baseline="central" class="total" y="-6">
+            {{ total }}
+          </text>
+          <text text-anchor="middle" dominant-baseline="central" class="total-label" y="14">
+            technique{{ total > 1 ? 's' : '' }}
+          </text>
+        </svg>
+      </div>
+
+      <ul class="legend">
+        <li *ngFor="let s of slices">
+          <span class="dot" [style.background]="s.color"></span>
+          <span class="name">{{ s.name }}</span>
+          <span class="count">{{ s.count }}</span>
+          <span class="pct">{{ s.percent | number:'1.0-0' }}%</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="empty" *ngIf="slices.length === 0">
+      <p>Pas encore de données à afficher</p>
+    </div>
+  

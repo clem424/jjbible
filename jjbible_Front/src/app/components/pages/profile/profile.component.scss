@@ -1,0 +1,137 @@
+    h1 { margin-bottom: 22px; }
+    .profile-card {
+      background: var(--surface);
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(30,99,214,0.05), rgba(13,71,161,0.02));
+      border-bottom: 1px solid var(--border);
+    }
+    .avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 36px; font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      flex-shrink: 0;
+    }
+    .info { flex: 1; min-width: 0; }
+    h2 { margin: 0 0 4px; font-size: 24px; }
+    .email { margin: 0 0 14px; color: var(--text-muted); font-size: 13px; }
+    .belt-section { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+    .belt-label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+
+    .grid-settings {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 28px 32px;
+    }
+    .setting.full { grid-column: 1 / -1; }
+    @media (max-width: 600px) {
+      .grid-settings { grid-template-columns: 1fr; padding: 22px; }
+      .profile-header { padding: 22px; flex-direction: column; align-items: flex-start; }
+    }
+
+    .belt-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .belt-option {
+      width: 56px; height: 56px;
+      border-radius: 12px; padding: 0;
+      position: relative;
+      border: 3px solid transparent;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .belt-option:hover { transform: scale(1.08); }
+    .belt-option.selected { border-color: var(--text); }
+    .check { color: white; font-size: 20px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+
+    .bar-picker { display: flex; gap: 8px; margin-top: 8px; }
+    .bar-option {
+      flex: 1; max-width: 56px; height: 56px;
+      border-radius: 12px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 18px; font-weight: 700;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .bar-option:hover { background: var(--border); }
+    .bar-option.selected {
+      background: linear-gradient(135deg, var(--belt-primary), var(--belt-secondary));
+      color: var(--belt-text-on-belt);
+      border-color: var(--belt-secondary);
+    }
+
+    .hint { color: var(--text-muted); font-size: 12px; margin-top: 8px; }
+    .save { margin-top: 12px; }
+
+    .stats-card {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .stats-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .stats-header h2 { margin: 0; }
+    .stat-summary { display: flex; gap: 12px; flex-wrap: wrap; }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--bg);
+      border-radius: 10px;
+      min-width: 80px;
+    }
+    .stat-value {
+      font-size: 22px; font-weight: 800;
+      color: var(--belt-primary);
+      line-height: 1;
+    }
+    .stat-item.maitrise .stat-value { color: #10b981; }
+    .stat-item.en-cours .stat-value { color: #f59e0b; }
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .count { color: var(--text-muted); font-size: 13px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .empty-favs {
+      text-align: center;
+      padding: 52px 20px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 2px dashed var(--border);
+    }
+    .empty-favs .emoji { font-size: 40px; display: block; margin-bottom: 12px; }
+    .empty-favs p { margin: 4px 0; color: var(--text-muted); }
+  
